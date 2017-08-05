@@ -13,18 +13,16 @@ func main() {
   app.Usage = "open-gitlab-branch"
   app.Action = func(c *cli.Context) error {
 
-    // Get current directory
-    ex, err := os.Executable()
+    currentWorkingDir, err := os.Getwd()
     if err != nil {
-        panic(err)
+      panic(err)
     }
-    exPath := filepath.Dir(ex)
-    file := filepath.Base(exPath)
+    dir := filepath.Base(currentWorkingDir)
 
     // TODO: Get current branch
     branch := "master"
 
-    open.Run("https://gitlab.ryaltoapp.com/ryalto/" + file + "/tree/" + branch)
+    open.Run("https://gitlab.ryaltoapp.com/ryalto/" + dir + "/tree/" + branch)
 
     return nil
   }
